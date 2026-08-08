@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Inventory Manager — Altıntuğ Cars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body data-theme-body>
+
+<!-- ---------- LOCK SCREEN ---------- -->
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box">
+    <div class="logo" style="justify-content:center; margin-bottom:22px;"><img src="assets/logo.png" alt="Altıntuğ Cars" class="logo-img"></div>
+    <h1 class="admin-title" style="text-align:center; font-size:26px;">Staff Access</h1>
+    <p class="admin-sub" style="text-align:center;">This page is for dealership staff only. It isn't linked anywhere on the public site.</p>
+    <form id="lockForm">
+      <div class="form-row">
+        <label for="lockPass">Passcode</label>
+        <input id="lockPass" type="password" required autocomplete="off" placeholder="Enter passcode">
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%; justify-content:center; margin-top:6px;">Unlock</button>
+      <p class="lock-error" id="lockError">Incorrect passcode. Try again.</p>
+    </form>
+  </div>
+</div>
+
+<!-- ---------- ADMIN APP ---------- -->
+<div class="admin-wrap" id="adminApp" hidden>
+
+  <nav id="nav" class="admin-nav">
+    <div class="logo"><img src="assets/logo.png" alt="Altıntuğ Cars" class="logo-img"><span class="admin-tag">Inventory Manager</span></div>
+    <div class="nav-right">
+      <div class="theme-toggle" id="themeToggle"><div class="dot"></div></div>
+      <a class="btn-ghost" href="index.html" style="padding:10px 18px; font-size:12px;">View Live Site ↗</a>
+      <button class="btn-ghost" id="lockOut" style="padding:10px 18px; font-size:12px;">Lock</button>
+    </div>
+  </nav>
+
+  <div class="admin-body">
+
+    <div class="admin-notice">
+      <b>Heads up:</b> listings you add here are saved in this browser only. They'll appear on the live site when you view it from the same device/browser. Customers never see this page or a link to it.
+    </div>
+
+    <section class="admin-panel">
+      <div class="admin-panel-head">
+        <span class="section-eyebrow" id="formMode">Add a Vehicle</span>
+        <h2 class="section-title" style="font-size:28px;">New Listing</h2>
+      </div>
+
+      <form id="vehicleForm">
+        <input type="hidden" id="editingId" value="">
+
+        <div class="form-grid">
+          <div class="form-row">
+            <label for="f-name">Vehicle Name</label>
+            <input id="f-name" type="text" required placeholder="e.g. Meridian Zenith GT">
+          </div>
+          <div class="form-row">
+            <label for="f-make">Make</label>
+            <input id="f-make" type="text" required placeholder="e.g. Meridian">
+          </div>
+        </div>
+
+        <div class="form-grid form-grid-3">
+          <div class="form-row">
+            <label for="f-year">Year</label>
+            <input id="f-year" type="number" required min="1980" max="2030" placeholder="2026">
+          </div>
+          <div class="form-row">
+            <label for="f-mileage">Mileage</label>
+            <input id="f-mileage" type="text" required placeholder="e.g. 1,200">
+          </div>
+          <div class="form-row">
+            <label for="f-hp">Horsepower</label>
+            <input id="f-hp" type="text" required placeholder="e.g. 420 HP">
+          </div>
+        </div>
+
+        <div class="form-grid form-grid-4">
+          <div class="form-row">
+            <label for="f-fuel">Fuel</label>
+            <select id="f-fuel">
+              <option>Petrol</option><option>Diesel</option><option>Electric</option><option>Hybrid</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="f-trans">Transmission</label>
+            <input id="f-trans" type="text" required placeholder="e.g. 8-Spd Auto">
+          </div>
+          <div class="form-row">
+            <label for="f-engine">Engine</label>
+            <input id="f-engine" type="text" required placeholder="e.g. 3.0L V6">
+          </div>
+          <div class="form-row">
+            <label for="f-color">Color</label>
+            <input id="f-color" type="text" required placeholder="e.g. Gray">
+          </div>
+        </div>
+
+        <div class="form-grid form-grid-3">
+          <div class="form-row">
+            <label for="f-price">Price ($)</label>
+            <input id="f-price" type="number" required min="0" placeholder="78400">
+          </div>
+          <div class="form-row">
+            <label for="f-finance">Est. Monthly</label>
+            <input id="f-finance" type="text" required placeholder="e.g. $1,120">
+          </div>
+          <div class="form-row">
+            <label for="f-badge">Badge</label>
+            <select id="f-badge">
+              <option>New</option><option>Used</option><option>Featured</option><option>Luxury</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Categories <span class="hint">(controls which inventory tabs it shows under)</span></label>
+          <div class="cat-checks" id="catChecks">
+            <label><input type="checkbox" value="featured"> Featured</label>
+            <label><input type="checkbox" value="new"> Latest Arrivals</label>
+            <label><input type="checkbox" value="luxury"> Luxury</label>
+            <label><input type="checkbox" value="ev"> Electric</label>
+            <label><input type="checkbox" value="suv"> SUV</label>
+            <label><input type="checkbox" value="sedan"> Sedan</label>
+            <label><input type="checkbox" value="sport"> Sports</label>
+            <label><input type="checkbox" value="budget"> Budget</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="f-photos">Photos <span class="hint">(first photo is used as the main card image)</span></label>
+          <input id="f-photos" type="file" accept="image/*" multiple>
+          <div class="photo-preview" id="photoPreview"></div>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:6px;">
+          <button type="submit" class="btn-primary" style="flex:1; justify-content:center;" id="submitBtn">Add to Inventory</button>
+          <button type="button" class="btn-ghost" id="cancelEdit" style="display:none;">Cancel Edit</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="admin-panel">
+      <div class="admin-panel-head">
+        <span class="section-eyebrow">On This Device</span>
+        <h2 class="section-title" style="font-size:28px;">Your Uploaded Listings</h2>
+      </div>
+      <div class="admin-list" id="adminList"></div>
+    </section>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin.js"></script>
+</body>
+</html>
