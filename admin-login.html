@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Staff Login — Altıntuğ Cars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
+<script>
+  // Already signed in this session — skip straight to the dashboard.
+  if(sessionStorage.getItem('altintug_admin_unlocked') === '1'){
+    location.replace('admin.html');
+  }
+</script>
+</head>
+<body data-theme-body>
+
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box">
+    <div class="logo" style="justify-content:center; margin-bottom:22px;"><img src="assets/logo.png" alt="Altıntuğ Cars" class="logo-img"></div>
+    <h1 class="admin-title" style="text-align:center; font-size:26px;">Staff Access</h1>
+    <p class="admin-sub" style="text-align:center;">This page is for dealership staff only. It isn't linked anywhere on the public site.</p>
+    <form id="lockForm">
+      <div class="form-row">
+        <label for="lockPass">Passcode</label>
+        <input id="lockPass" type="password" required autocomplete="off" placeholder="Enter passcode">
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%; justify-content:center; margin-top:6px;">Unlock</button>
+      <p class="lock-error" id="lockError">Incorrect passcode. Try again.</p>
+    </form>
+  </div>
+</div>
+
+<script src="admin-login.js"></script>
+</body>
+</html>
